@@ -145,3 +145,155 @@ export default function PokemonDetails({ route }: any) {
         </View>
     )
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: NAVY,
+        alignItems: "center",
+        justifyContent: "flex-start",
+    },
+    loading: {
+        flex: 1,
+        backgroundColor: NAVY,
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 12,
+    },
+    loadingText: {
+        color: WHITE,
+        fontFamily: 'ScienceGothic_400Regular',
+        letterSpacing: 2,
+        fontSize: 13,
+        textTransform: 'uppercase',
+    },
+
+    card: {
+        width: '80%',
+        borderRadius: 20,
+        padding: 20,
+        marginTop: 24,
+        alignItems: 'center',
+        gap: 12,
+    },
+    pokemonId: {
+        alignSelf: 'flex-end',
+        color: 'rgba(255,255,255,0.6)',
+        fontFamily: 'ScienceGothic_300Light',
+        fontSize: 13,
+        letterSpacing: 2,
+    },
+    image: {
+        width: 180,
+        height: 180,
+    },
+    typesRow: {
+        flexDirection: 'row',
+        gap: 8,
+    },
+    typeBadge: {
+        borderRadius: 20,
+        paddingHorizontal: 14,
+        paddingVertical: 4,
+    },
+    typeBadgeText: {
+        color: WHITE,
+        fontFamily: 'ScienceGothic_700Bold',
+        fontSize: 12,
+        letterSpacing: 1.5,
+        textTransform: 'uppercase',
+    },
+
+    infoBox: {
+        width: '80%',
+        backgroundColor: CARD_BG,
+        borderRadius: 20,
+        padding: 20,
+        marginTop: 16,
+        alignItems: 'center',
+        gap: 16,
+    },
+    pokemonName: {
+        fontFamily: 'ScienceGothic_800ExtraBold',
+        fontSize: 28,
+        color: WHITE,
+        letterSpacing: 4,
+        textTransform: 'uppercase',
+    },
+    statsRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: '100%',
+        justifyContent: 'space-around',
+    },
+    statItem: {
+        alignItems: 'center',
+        gap: 4,
+    },
+    statValue: {
+        fontFamily: 'ScienceGothic_700Bold',
+        fontSize: 18,
+        color: YELLOW,
+        letterSpacing: 1,
+    },
+    statLabel: {
+        fontFamily: 'ScienceGothic_300Light',
+        fontSize: 11,
+        color: GRAY,
+        letterSpacing: 1.5,
+        textTransform: 'uppercase',
+    },
+    statDivider: {
+        width: 1,
+        height: 32,
+        backgroundColor: SURFACE,
+    },
+
+    buttonsRow: {
+        flexDirection: 'row',
+        gap: 10,
+        width: '100%',
+    },
+    controlBtn: {
+        flex: 1,
+        backgroundColor: SURFACE,
+        borderRadius: 10,
+        paddingVertical: 11,
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: '#3a3a5e',
+    },
+    controlBtnActive: {
+        backgroundColor: '#5a2d6e',
+        borderColor: '#D685AD',
+    },
+    controlBtnText: {
+        fontFamily: 'ScienceGothic_600SemiBold',
+        color: GRAY,
+        fontSize: 12,
+        letterSpacing: 1.5,
+        textTransform: 'uppercase',
+    },
+    controlBtnTextActive: {
+        color: '#D685AD',
+    },
+
+    normal:   { backgroundColor: "#A8A77A" },
+    fire:     { backgroundColor: "#EE8130" },
+    water:    { backgroundColor: "#6390F0" },
+    electric: { backgroundColor: "#F7D02C" },
+    grass:    { backgroundColor: "#7AC74C" },
+    ice:      { backgroundColor: "#96D9D6" },
+    fighting: { backgroundColor: "#C22E28" },
+    poison:   { backgroundColor: "#A33EA1" },
+    ground:   { backgroundColor: "#E2BF65" },
+    flying:   { backgroundColor: "#A98FF3" },
+    psychic:  { backgroundColor: "#F95587" },
+    bug:      { backgroundColor: "#A6B91A" },
+    rock:     { backgroundColor: "#B6A136" },
+    ghost:    { backgroundColor: "#735797" },
+    dragon:   { backgroundColor: "#6F35FC" },
+    dark:     { backgroundColor: "#705746" },
+    steel:    { backgroundColor: "#B7B7CE" },
+    fairy:    { backgroundColor: "#D685AD" },
+});
