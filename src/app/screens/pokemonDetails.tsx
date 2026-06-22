@@ -14,6 +14,7 @@ export default function PokemonDetails({ route }: any) {
     const [error, setError] = useState();
     const [showBack, setShowBack] = useState(false);
     const [generFemale, setGenerFemale] = useState(Boolean);
+    const [detalhesHabilidade, setDetalhesHabilidade] = useState<Record<string, string>>({});
     const url = route.params.url;
 
     async function getDetailsPokemon() {
@@ -21,11 +22,32 @@ export default function PokemonDetails({ route }: any) {
         try {
             const resp = await fetch(url);
             const data = await resp.json();
+            buscarHabilidades(data.abilities);
             setPokemon(data);
         } catch (error) {
         } finally {
             setTimeout(() => { setLoading(false) }, 2000);
         }
+    }
+
+    async function buscarHabilidades(habilidades: any[]) {
+        if (!habilidades) return;
+        const resultados: Record<string, string> = {};
+        await Promise.all(
+            habilidades.map(async (h: any) => {
+                try {
+                    const resp = await fetch(h.ability.url);
+                    const data = await resp.json();
+                    const entrada = data.flavor_text_entries?.find(
+                        (e: any) => e.language.name === 'pt-BR' || e.language.name === 'en'
+                    );
+                    resultados[h.ability.name] = entrada?.flavor_text?.replace(/\n|\f/g, ' ') ?? '';
+                } catch {
+                    resultados[h.ability.name] = '';
+                }
+            })
+        );
+        setDetalhesHabilidade(resultados);
     }
 
     useEffect(() => {
@@ -36,26 +58,30 @@ export default function PokemonDetails({ route }: any) {
         return nome.charAt(0).toUpperCase() + nome.slice(1);
     }
 
+    function formatarNome(nome: string) {
+        return nome.split('-').map(maiuscula).join(' ');
+    }
+
     function getTypeStyle(type?: string) {
         switch (type) {
-            case "fire":      return styles.fire;
-            case "water":     return styles.water;
-            case "grass":     return styles.grass;
-            case "electric":  return styles.electric;
-            case "ice":       return styles.ice;
-            case "fighting":  return styles.fighting;
-            case "poison":    return styles.poison;
-            case "ground":    return styles.ground;
-            case "flying":    return styles.flying;
-            case "psychic":   return styles.psychic;
-            case "bug":       return styles.bug;
-            case "rock":      return styles.rock;
-            case "ghost":     return styles.ghost;
-            case "dragon":    return styles.dragon;
-            case "dark":      return styles.dark;
-            case "steel":     return styles.steel;
-            case "fairy":     return styles.fairy;
-            default:          return styles.normal;
+            case "fire": return styles.fire;
+            case "water": return styles.water;
+            case "grass": return styles.grass;
+            case "electric": return styles.electric;
+            case "ice": return styles.ice;
+            case "fighting": return styles.fighting;
+            case "poison": return styles.poison;
+            case "ground": return styles.ground;
+            case "flying": return styles.flying;
+            case "psychic": return styles.psychic;
+            case "bug": return styles.bug;
+            case "rock": return styles.rock;
+            case "ghost": return styles.ghost;
+            case "dragon": return styles.dragon;
+            case "dark": return styles.dark;
+            case "steel": return styles.steel;
+            case "fairy": return styles.fairy;
+            default: return styles.normal;
         }
     }
 
@@ -140,6 +166,27 @@ export default function PokemonDetails({ route }: any) {
                             </Text>
                         </TouchableOpacity>
                     )}
+                </View>
+                <View style={styles.secao}>
+                    <Text style={styles.tituloSecao}>Habilidades</Text>
+                    {pokemon?.abilities?.map((h: any) => (
+                        <View key={h.ability.name} style={styles.cardHabilidade}>
+                            <Text style={styles.nomeHabilidade}>{formatarNome(h.ability.name)}</Text>
+                            {h.is_hidden && <Text style={styles.oculta}>Oculta</Text>}
+                            <Text style={styles.descHabilidade}>{detalhesHabilidade[h.ability.name] ?? '...'}</Text>
+                        </View>
+                    ))}
+                </View>
+
+                <View style={styles.secao}>
+                    <Text style={styles.tituloSecao}>Golpes</Text>
+                    <View style={styles.gradeGolpes}>
+                        {pokemon?.moves?.slice(0, 12).map((m: any) => (
+                            <View key={m.move.name} style={styles.golpe}>
+                                <Text style={styles.textoGolpe}>{formatarNome(m.move.name)}</Text>
+                            </View>
+                        ))}
+                    </View>
                 </View>
             </View>
         </View>
@@ -277,23 +324,81 @@ const styles = StyleSheet.create({
     controlBtnTextActive: {
         color: '#D685AD',
     },
+    secao: {
+        width: '80%',
+        backgroundColor: CARD_BG,
+        borderRadius: 20,
+        padding: 20,
+        marginTop: 16,
+        gap: 12,
+    },
+    tituloSecao: {
+        fontFamily: 'ScienceGothic_700Bold',
+        fontSize: 13,
+        color: GRAY,
+        letterSpacing: 2,
+        textTransform: 'uppercase',
+    },
+    cardHabilidade: {
+        backgroundColor: SURFACE,
+        borderRadius: 12,
+        padding: 14,
+        gap: 4,
+    },
+    nomeHabilidade: {
+        fontFamily: 'ScienceGothic_700Bold',
+        fontSize: 15,
+        color: WHITE,
+    },
+    oculta: {
+        fontFamily: 'ScienceGothic_400Regular',
+        fontSize: 10,
+        color: '#D685AD',
+        letterSpacing: 1,
+        textTransform: 'uppercase',
+    },
+    descHabilidade: {
+        fontFamily: 'ScienceGothic_300Light',
+        fontSize: 12,
+        color: GRAY,
+        lineHeight: 18,
+    },
+    gradeGolpes: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: 8,
+    },
+    golpe: {
+        backgroundColor: SURFACE,
+        borderRadius: 8,
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+        borderWidth: 1,
+        borderColor: '#3a3a5e',
+    },
+    textoGolpe: {
+        fontFamily: 'ScienceGothic_400Regular',
+        fontSize: 11,
+        color: WHITE,
+    },
 
-    normal:   { backgroundColor: "#A8A77A" },
-    fire:     { backgroundColor: "#EE8130" },
-    water:    { backgroundColor: "#6390F0" },
+
+    normal: { backgroundColor: "#A8A77A" },
+    fire: { backgroundColor: "#EE8130" },
+    water: { backgroundColor: "#6390F0" },
     electric: { backgroundColor: "#F7D02C" },
-    grass:    { backgroundColor: "#7AC74C" },
-    ice:      { backgroundColor: "#96D9D6" },
+    grass: { backgroundColor: "#7AC74C" },
+    ice: { backgroundColor: "#96D9D6" },
     fighting: { backgroundColor: "#C22E28" },
-    poison:   { backgroundColor: "#A33EA1" },
-    ground:   { backgroundColor: "#E2BF65" },
-    flying:   { backgroundColor: "#A98FF3" },
-    psychic:  { backgroundColor: "#F95587" },
-    bug:      { backgroundColor: "#A6B91A" },
-    rock:     { backgroundColor: "#B6A136" },
-    ghost:    { backgroundColor: "#735797" },
-    dragon:   { backgroundColor: "#6F35FC" },
-    dark:     { backgroundColor: "#705746" },
-    steel:    { backgroundColor: "#B7B7CE" },
-    fairy:    { backgroundColor: "#D685AD" },
+    poison: { backgroundColor: "#A33EA1" },
+    ground: { backgroundColor: "#E2BF65" },
+    flying: { backgroundColor: "#A98FF3" },
+    psychic: { backgroundColor: "#F95587" },
+    bug: { backgroundColor: "#A6B91A" },
+    rock: { backgroundColor: "#B6A136" },
+    ghost: { backgroundColor: "#735797" },
+    dragon: { backgroundColor: "#6F35FC" },
+    dark: { backgroundColor: "#705746" },
+    steel: { backgroundColor: "#B7B7CE" },
+    fairy: { backgroundColor: "#D685AD" },
 });
