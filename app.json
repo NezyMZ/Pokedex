@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "Pokedex",
+    "slug": "Pokedex",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/Pokemon_Icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/Pokemon_Icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#171A3A"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/Pokemon_Icon.png",
+        "backgroundColor": "#171A3A"
+      },
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false,
+      "package": "com.maiconmz.meuapp"
+    },
+    "web": {
+      "favicon": "./assets/Pokemon_Icon.png"
+    },
+    "plugins": [
+      "expo-font"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "df066138-8b58-433d-8638-ef40b17154c4"
+      }
+    }
+  }
+}
