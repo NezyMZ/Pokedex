@@ -213,3 +213,93 @@ export default function Pokemon({ navigation }: any) {
         </  SafeAreaView >
     )
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "#1a1a2e",
+        alignItems: "center",
+        paddingHorizontal: 15,
+        paddingTop: 20,
+    },
+
+    texto: {
+        color: "#F5F5F5",
+        fontFamily: "ScienceGothic_400Regular",
+        textAlign: "center",
+    },
+
+    titulo: {
+        fontSize: 28,
+        color: "#FFF",
+        fontFamily: "ScienceGothic_700Bold",
+        letterSpacing: 2,
+        marginBottom: 18,
+    },
+
+    inputBusca: {
+        width: "95%",
+        backgroundColor: "#26294E",
+        color: "#FFF",
+        borderRadius: 14,
+        borderWidth: 1,
+        borderColor: "#444A79",
+        paddingHorizontal: 16,
+        paddingVertical: 12,
+        marginBottom: 12,
+        fontFamily: "ScienceGothic_400Regular",
+    },
+
+    errorTexto: {
+        color: "#FF6B6B",
+        marginVertical: 10,
+        fontFamily: "ScienceGothic_600SemiBold",
+    },
+
+    lista: {
+        flex: 1,
+        width: "100%",
+    },
+
+    loading: {
+        flex: 1,
+        backgroundColor: "#171A3A",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+
+    card: {
+        flex: 1,
+        maxWidth: "24%",
+        backgroundColor: "#25284F",
+        alignItems: "center",
+        justifyContent: "space-between",
+
+        margin: 6,
+        paddingVertical: 14,
+        paddingHorizontal: 8,
+
+        borderRadius: 18,
+
+        borderWidth: 1,
+        borderColor: "#30356A",
+
+        elevation: 6,
+    },
+
+    imagem: {
+        width: 70,
+        height: 70,
+        resizeMode: "contain",
+        marginVertical: 10,
+    },
+
+    pagina: {
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        paddingVertical: 16,
+        paddingHorizontal: 10,
+    },
+});
